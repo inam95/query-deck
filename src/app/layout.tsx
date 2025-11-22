@@ -3,12 +3,12 @@ import { Montserrat, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 const montserrat = Montserrat({
-  variable: "--font-montserrat",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
