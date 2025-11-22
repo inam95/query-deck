@@ -1,7 +1,9 @@
-import prisma from "./lib/prisma";
+import { Button } from "@/components/ui/button";
 
 export default async function Home() {
-  const questions = await prisma.question.findMany();
-  console.log(questions);
-  return <div>Query Deck</div>;
+  return (
+    <div>
+      <Button>Click me</Button>
+    </div>
+  );
 }
