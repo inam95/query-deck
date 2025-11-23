@@ -23,5 +23,5 @@ model Question {
   companyAsked    String @map("company_asked")
 
   @@index([difficulty, type])
-  @@map("questions")
+  @@map("question")
 }
