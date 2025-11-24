@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QueryDeck
+
+**Repository:** [https://github.com/inam95/query-deck](https://github.com/inam95/query-deck)
+
+QueryDeck is a modern web application designed to help developers practice and master technical interview questions. It consolidates interview resources into a single, polished platform with advanced filtering and sorting capabilities.
+
+## Key Features
+
+- **Advanced Filtering & Sorting**: Filter questions by difficulty, type, and search text. Sort by votes, title, or difficulty.
+- **URL-Based State Management**: All filters and sorting preferences are synced with the URL using `nuqs`, making views easily shareable.
+- **Performance & Accessibility**: Optimized for speed and accessibility. (See `lighthouse result.PNG` for performance metrics).
+- **Responsive Design**: Fully responsive layout that works seamlessly on mobile and desktop.
+- **Dark & Light Mode**: Built-in theme support.
+- **Server Components First**: Optimized for performance and SEO using Next.js App Router.
+- **Modern UI/UX**: Styled with Tailwind CSS and Shadcn UI, featuring smooth animations powered by Framer Motion.
+
+## Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Language**: TypeScript
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Components**: [Shadcn UI](https://ui.shadcn.com/)
+- **State Management**: [nuqs](https://github.com/47ng/nuqs) (URL state)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+## Interesting Technical Decisions
+
+- **URL as State Manager**: Instead of relying on global state stores, I used `nuqs` to manage state via URL search parameters. This ensures the UI is always in sync with the URL, enabling users to bookmark or share specific filtered views.
+- **Server Components**: I adopted a Server Components first architecture. The question list is fetched and rendered on the server to reduce client-side JavaScript and improve load times.
+- **Prisma & Postgres**: Chosen for robust type-safety and data integrity.
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to run the project locally.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js (v18+)
+- Docker & Docker Compose (for the database)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Clone the repository**
 
-## Learn More
+    ```bash
+    git clone https://github.com/inam95/query-deck.git
+    cd query-deck
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    npm install
+    # or
+    pnpm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Set up Environment Variables**
 
-## Deploy on Vercel
+    Create a `.env` file in the root directory:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```env
+    DATABASE_URL="postgresql://postgres:password@localhost:5432/query_deck?schema=public"
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4.  **Start the Database**
+
+    ```bash
+    docker-compose up -d
+    ```
+
+5.  **Setup the Database Schema**
+
+    ```bash
+    npx prisma db push
+    ```
+
+6.  **Import Data**
+
+    Import the `questions.csv` file located in the root directory into your `question` table using your preferred database tool (e.g., pgAdmin, DBeaver, or TablePlus).
+
+7.  **Run the Development Server**
+
+    ```bash
+    npm run dev
+    # or
+    pnpm dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000).
+
+## Future Improvements
+
+- **Question Detail Page**: Dedicated page for full problem descriptions and solutions.
+- **Bookmarking System**: Allow users to save questions.
+- **Mock Interview Generator**: Generate random question sets based on selected topics.
+
+## Deployment
+
+The application is deployed on Vercel: [https://query-deck.vercel.app/](https://query-deck.vercel.app/)
