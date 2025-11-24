@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MobileNavbar } from "./mobile-navbar";
 import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "../theme-switcher";
 import { navLinks, authLinks } from "@/lib/constants";
 import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
+  const pathname = usePathname();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -24,21 +28,40 @@ export function Navbar() {
           </Link>
         </motion.div>
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link, index) => (
-            <motion.div
-              key={link.href}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-            >
-              <Link
-                href={link.href}
-                className="text-foreground hover:text-primary transition-colors text-sm font-medium"
+          {navLinks.map((link, index) => {
+            const isActive = pathname === link.href;
+            return (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
               >
-                {link.label}
-              </Link>
-            </motion.div>
-          ))}
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors relative",
+                    isActive
+                      ? "text-primary font-semibold"
+                      : "text-foreground hover:text-primary"
+                  )}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.div
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                      layoutId="activeNavLink"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
         <div className="hidden md:flex items-center gap-3">
           <ThemeSwitcher />

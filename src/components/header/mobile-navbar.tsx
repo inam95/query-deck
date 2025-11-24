@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import {
   Sheet,
@@ -18,6 +19,7 @@ import { motion } from "motion/react";
 
 export function MobileNavbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -44,22 +46,30 @@ export function MobileNavbar() {
         {/* Navigation Links */}
         <nav className="flex-1 px-6 py-6 overflow-y-auto">
           <div className="flex flex-col gap-1">
-            {navLinks.map((link, index) => (
-              <motion.div
-                key={link.href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-foreground hover:text-primary transition-colors text-lg font-medium py-3 block rounded-md hover:bg-accent px-2 -mx-2"
+            {navLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              return (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  {link.label}
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "text-lg font-medium py-3 block rounded-md px-2 -mx-2 transition-colors",
+                      isActive
+                        ? "text-primary font-semibold bg-accent"
+                        : "text-foreground hover:text-primary hover:bg-accent"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </nav>
 
