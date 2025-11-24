@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
 import { capitalizeType } from "@/lib/utils";
 import type { Question } from "@/generated/prisma/client";
+import { ThumbsUp } from "lucide-react";
 
 interface QuestionCardProps {
   question: Question;
@@ -38,6 +39,10 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
         <div className="flex items-center gap-2 flex-wrap">
           <Badge variant="type">{capitalizeType(question.type)}</Badge>
           <Badge variant="difficulty">Level {question.difficulty}</Badge>
+          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <ThumbsUp className="h-4 w-4" />
+            <span className="font-medium">{question.votes}</span>
+          </div>
         </div>
 
         {question.companyAsked && (
