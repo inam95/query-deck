@@ -11,7 +11,6 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
-        {/* Logo and Title */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -24,8 +23,6 @@ export function Navbar() {
             <span className="font-bold">QueryDeck</span>
           </Link>
         </motion.div>
-
-        {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link, index) => (
             <motion.div
@@ -43,8 +40,6 @@ export function Navbar() {
             </motion.div>
           ))}
         </div>
-
-        {/* Desktop Auth Links and Theme Switcher */}
         <div className="hidden md:flex items-center gap-3">
           <ThemeSwitcher />
           <motion.div
@@ -72,8 +67,6 @@ export function Navbar() {
             </Link>
           </motion.div>
         </div>
-
-        {/* Mobile Menu and Theme Switcher */}
         <div className="flex md:hidden items-center gap-2">
           <ThemeSwitcher />
           <MobileNavbar />

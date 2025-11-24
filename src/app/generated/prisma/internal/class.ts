@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.0",
   "engineVersion": "0c19ccc313cf9911a90d99d2ac2eb0280c76c513",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Question {\n  id              String @id\n  title           String\n  difficulty      Int\n  type            String\n  votes           Int    @default(0)\n  questionSummary String @map(\"question_summary\")\n  companyAsked    String @map(\"company_asked\")\n\n  @@index([difficulty, type])\n  @@map(\"questions\")\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../src/app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Question {\n  id              String @id\n  title           String\n  difficulty      Int\n  type            String\n  votes           Int    @default(0)\n  questionSummary String @map(\"question_summary\")\n  companyAsked    String @map(\"company_asked\")\n\n  @@index([difficulty, type])\n  @@map(\"question\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Question\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"difficulty\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"votes\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"questionSummary\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"question_summary\"},{\"name\":\"companyAsked\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"company_asked\"}],\"dbName\":\"questions\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Question\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"difficulty\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"votes\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"questionSummary\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"question_summary\"},{\"name\":\"companyAsked\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"company_asked\"}],\"dbName\":\"question\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
