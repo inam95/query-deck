@@ -1,5 +1,5 @@
 import { getQuestions } from "@/lib/dal";
-import { QuestionCard } from "../question-card";
+import { QuestionCard } from "./question-card";
 import { QuestionsPagination } from "./questions-pagination";
 
 export async function QuestionsList() {

@@ -1,19 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { FiltersSidebar } from "@/components/filter/filters-sidebar";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Filter } from "lucide-react";
 import { motion } from "motion/react";
-import { FiltersSidebar } from "@/components/filters-sidebar";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-export function MobileFilters() {
+interface MobileFiltersProps {
+  types: string[];
+}
+export function MobileFilters({ types }: MobileFiltersProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
 
   return (
@@ -42,7 +39,7 @@ export function MobileFilters() {
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
             <div className="p-4">
-              <FiltersSidebar />
+              <FiltersSidebar types={types} />
             </div>
           </motion.div>
         </SheetContent>

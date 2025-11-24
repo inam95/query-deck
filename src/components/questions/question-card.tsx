@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
 import { capitalizeType } from "@/lib/utils";
-import type { Question } from "../generated/prisma/client";
+import type { Question } from "@/generated/prisma/client";
 
 interface QuestionCardProps {
   question: Question;

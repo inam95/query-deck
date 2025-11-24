@@ -34,8 +34,6 @@ export async function getQuestions(
     search,
   } = params;
 
-  await mockDelay(7000);
-
   const validPage = Math.max(1, page);
   const validPageSize = Math.max(1, Math.min(100, pageSize)); // Cap at 100 items per page
   const skip = (validPage - 1) * validPageSize;

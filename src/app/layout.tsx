@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/header/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const montserrat = Montserrat({

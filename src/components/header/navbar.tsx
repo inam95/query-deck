@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { MobileNavbar } from "./mobile-navbar";
 import { Button } from "@/components/ui/button";
-import { ThemeSwitcher } from "./theme-switcher";
+import { ThemeSwitcher } from "../theme-switcher";
 import { navLinks, authLinks } from "@/lib/constants";
 import { motion } from "motion/react";
 
