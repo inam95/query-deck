@@ -3,6 +3,13 @@
 import { Search, ChevronsUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import { useQueryStates } from "nuqs";
 import { searchParamsParsers } from "@/lib/search-params";
@@ -33,14 +40,15 @@ export function FacetFilter() {
     [setQueryStates]
   );
 
-  const handleSortChange = useCallback(() => {
-    const currentIndex = sortOptions.findIndex((opt) => opt.value === sort);
-    const nextIndex = (currentIndex + 1) % sortOptions.length;
-    setQueryStates({
-      sort: sortOptions[nextIndex].value,
-      page: 1,
-    });
-  }, [sort, setQueryStates]);
+  const handleSortChange = useCallback(
+    (value: string) => {
+      setQueryStates({
+        sort: value as (typeof sortOptions)[number]["value"],
+        page: 1,
+      });
+    },
+    [setQueryStates]
+  );
 
   const handleOrderToggle = useCallback(() => {
     setQueryStates({
@@ -68,15 +76,29 @@ export function FacetFilter() {
         </div>
 
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-2 h-9"
-            onClick={handleSortChange}
-          >
-            {currentSortLabel}
-            <ChevronsUpDown className="h-4 w-4" />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="gap-2 h-9 w-32">
+                {currentSortLabel}
+                <ChevronsUpDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuRadioGroup
+                value={sort || "votes"}
+                onValueChange={handleSortChange}
+              >
+                {sortOptions.map((option) => (
+                  <DropdownMenuRadioItem
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             variant="outline"
             size="sm"
