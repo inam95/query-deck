@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Search, ChevronsUpDown } from "lucide-react";
 import { motion } from "motion/react";
 import { Input } from "@/components/ui/input";
@@ -22,8 +21,6 @@ interface QuestionsLayoutProps {
 }
 
 export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
     <main className="min-h-[calc(100vh-4rem)] px-4 md:px-6 py-6">
       {/* Search Bar Area */}
@@ -38,13 +35,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
               <Search className="h-4 w-4" />
             </div>
-            <Input
-              type="text"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
+            <Input type="text" placeholder="Search" className="pl-10" />
           </div>
 
           <Button variant="outline" size="sm" className="gap-2 h-9">
