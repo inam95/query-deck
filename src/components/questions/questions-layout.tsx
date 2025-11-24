@@ -1,25 +1,12 @@
 import { Search, ChevronsUpDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import type { GetQuestionsResult } from "@/lib/dal";
+
 import { QuestionsList } from "./questions-list";
 import { Suspense } from "react";
 import { QuestionCardSkeleton } from "./question-card-skeleton";
 
-interface QuestionsLayoutProps {
-  initialData: GetQuestionsResult;
-}
-
-export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
+export function QuestionsLayout() {
   return (
     <main className="min-h-[calc(100vh-4rem)] px-4 md:px-6 py-6">
       {/* Search Bar Area */}
@@ -53,72 +40,6 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
       </Suspense>
 
       {/* Pagination Area */}
-      {initialData.totalPages > 1 && (
-        <div className="flex items-center justify-center pt-4 border-t border-border">
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="/"
-                  className={
-                    initialData.page === 1
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-              {Array.from(
-                { length: Math.min(initialData.totalPages, 5) },
-                (_, i) => {
-                  let pageNum;
-                  if (initialData.totalPages <= 5) {
-                    pageNum = i + 1;
-                  } else if (initialData.page <= 3) {
-                    pageNum = i + 1;
-                  } else if (initialData.page >= initialData.totalPages - 2) {
-                    pageNum = initialData.totalPages - 4 + i;
-                  } else {
-                    pageNum = initialData.page - 2 + i;
-                  }
-
-                  return (
-                    <PaginationItem key={pageNum}>
-                      <PaginationLink
-                        href="/"
-                        isActive={pageNum === initialData.page}
-                      >
-                        {pageNum}
-                      </PaginationLink>
-                    </PaginationItem>
-                  );
-                }
-              )}
-              {initialData.totalPages > 5 && (
-                <>
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="/">
-                      {initialData.totalPages}
-                    </PaginationLink>
-                  </PaginationItem>
-                </>
-              )}
-              <PaginationItem>
-                <PaginationNext
-                  href="/"
-                  className={
-                    initialData.page === initialData.totalPages
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-        </div>
-      )}
     </main>
   );
 }

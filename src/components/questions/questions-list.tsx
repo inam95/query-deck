@@ -1,12 +1,13 @@
 import { getQuestions } from "@/lib/dal";
 import { QuestionCard } from "../question-card";
+import { QuestionsPagination } from "./questions-pagination";
 
 export async function QuestionsList() {
-  const questionsData = await getQuestions();
+  const questionsResult = await getQuestions();
   return (
     <div className="space-y-4 mb-8">
-      {questionsData.questions.length > 0 ? (
-        questionsData.questions.map((question, index) => (
+      {questionsResult.questions.length > 0 ? (
+        questionsResult.questions.map((question, index) => (
           <QuestionCard key={question.id} question={question} index={index} />
         ))
       ) : (
@@ -14,6 +15,7 @@ export async function QuestionsList() {
           <p className="text-muted-foreground">No questions found</p>
         </div>
       )}
+      <QuestionsPagination questionsResult={questionsResult} />
     </div>
   );
 }

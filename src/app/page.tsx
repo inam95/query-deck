@@ -1,10 +1,9 @@
-import { getQuestions, getUniqueTypes } from "@/lib/dal";
 import { FiltersSidebar } from "@/components/filters-sidebar";
 import { MobileFilters } from "@/components/mobile-filters";
 import { QuestionsLayout } from "@/components/questions/questions-layout";
+import { getUniqueTypes } from "@/lib/dal";
 
 export default async function Home() {
-  const questionsData = await getQuestions();
   const types = await getUniqueTypes();
 
   return (
@@ -20,7 +19,7 @@ export default async function Home() {
           </aside>
 
           {/* Main Content Area */}
-          <QuestionsLayout initialData={questionsData} />
+          <QuestionsLayout />
         </div>
       </div>
     </div>
