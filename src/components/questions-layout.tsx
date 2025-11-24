@@ -14,6 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { QuestionCard } from "@/components/question-card";
 import type { GetQuestionsResult } from "@/lib/dal";
 
 interface QuestionsLayoutProps {
@@ -57,37 +58,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
       <div className="space-y-4 mb-8">
         {initialData.questions.length > 0 ? (
           initialData.questions.map((question, index) => (
-            <motion.div
-              key={question.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: index * 0.05,
-                ease: "easeOut",
-              }}
-              whileHover={{ y: -2 }}
-              className="rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-md"
-            >
-              <div className="flex flex-col gap-2">
-                <h3 className="text-lg font-semibold text-foreground">
-                  {question.title}
-                </h3>
-                {question.questionSummary && (
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {question.questionSummary}
-                  </p>
-                )}
-                <div className="flex items-center gap-4 mt-2">
-                  <span className="text-xs text-muted-foreground">
-                    Difficulty: {question.difficulty}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    Type: {question.type}
-                  </span>
-                </div>
-              </div>
-            </motion.div>
+            <QuestionCard key={question.id} question={question} index={index} />
           ))
         ) : (
           <motion.div
@@ -113,7 +84,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  href="#"
+                  href="/"
                   className={
                     initialData.page === 1
                       ? "pointer-events-none opacity-50"
@@ -138,7 +109,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
                   return (
                     <PaginationItem key={pageNum}>
                       <PaginationLink
-                        href="#"
+                        href="/"
                         isActive={pageNum === initialData.page}
                       >
                         {pageNum}
@@ -153,7 +124,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
                     <PaginationEllipsis />
                   </PaginationItem>
                   <PaginationItem>
-                    <PaginationLink href="#">
+                    <PaginationLink href="/">
                       {initialData.totalPages}
                     </PaginationLink>
                   </PaginationItem>
@@ -161,7 +132,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
               )}
               <PaginationItem>
                 <PaginationNext
-                  href="#"
+                  href="/"
                   className={
                     initialData.page === initialData.totalPages
                       ? "pointer-events-none opacity-50"

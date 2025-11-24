@@ -36,6 +36,12 @@
   --sidebar-accent-foreground: oklch(0.3729 0.0306 259.7328);
   --sidebar-border: oklch(0.9276 0.0058 264.5313);
   --sidebar-ring: oklch(0.7227 0.192 149.5793);
+  --badge-type: oklch(0.7227 0.192 149.5793);
+  --badge-type-foreground: oklch(1 0 0);
+  --badge-difficulty: oklch(0.6959 0.1491 162.4796);
+  --badge-difficulty-foreground: oklch(1 0 0);
+  --card-hover-border: oklch(0.7227 0.192 149.5793);
+  --card-hover-bg: oklch(0.967 0.0029 264.5419);
   --font-sans: DM Sans, sans-serif;
   --font-sans: Montserrat, sans-serif;
   --font-mono: IBM Plex Mono, monospace;
@@ -96,6 +102,12 @@
   --sidebar-accent-foreground: oklch(0.7118 0.0129 286.0665);
   --sidebar-border: oklch(0.4461 0.0263 256.8018);
   --sidebar-ring: oklch(0.7729 0.1535 163.2231);
+  --badge-type: oklch(0.7729 0.1535 163.2231);
+  --badge-type-foreground: oklch(0.2077 0.0398 265.7549);
+  --badge-difficulty: oklch(0.7845 0.1325 181.912);
+  --badge-difficulty-foreground: oklch(0.2077 0.0398 265.7549);
+  --card-hover-border: oklch(0.7729 0.1535 163.2231);
+  --card-hover-bg: oklch(0.2463 0.0275 259.9628);
   --font-sans: Montserrat, sans-serif;
   --font-mono: IBM Plex Mono, monospace;
   --radius: 0.5rem;
@@ -179,5 +191,16 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .question-card {
+    @apply rounded-lg border border-border bg-card p-6 transition-all duration-200;
+  }
+
+  .question-card:hover {
+    border-color: var(--card-hover-border);
+    background-color: var(--card-hover-bg);
   }
 }
