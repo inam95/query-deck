@@ -2,9 +2,16 @@ import { FiltersSidebar } from "@/components/filter/filters-sidebar";
 import { MobileFilters } from "@/components/filter/mobile-filters";
 import { QuestionsLayout } from "@/components/questions/questions-layout";
 import { getUniqueTypes } from "@/lib/dal";
+import { loadSearchParams } from "@/lib/search-params";
+import type { SearchParams } from "nuqs/server";
 
-export default async function Home() {
+type PageProps = {
+  searchParams: Promise<SearchParams>;
+};
+
+export default async function Home({ searchParams }: PageProps) {
   const types = await getUniqueTypes();
+  const parsedParams = await loadSearchParams(searchParams);
 
   return (
     <div className="min-h-screen">
@@ -19,7 +26,7 @@ export default async function Home() {
           </aside>
 
           {/* Main Content Area */}
-          <QuestionsLayout />
+          <QuestionsLayout searchParams={parsedParams} />
         </div>
       </div>
     </div>

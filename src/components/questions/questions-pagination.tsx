@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Pagination,
   PaginationContent,
@@ -8,12 +10,39 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { GetQuestionsResult } from "@/lib/dal";
+import { useQueryState } from "nuqs";
+import { searchParamsParsers } from "@/lib/search-params";
+import { useCallback } from "react";
 
 export function QuestionsPagination({
   questionsResult,
 }: {
   questionsResult: GetQuestionsResult;
 }) {
+  const [page, setPage] = useQueryState("page", {
+    ...searchParamsParsers.page,
+    shallow: false,
+  });
+
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      setPage(newPage);
+    },
+    [setPage]
+  );
+
+  const handlePrevious = useCallback(() => {
+    if (questionsResult.page > 1) {
+      handlePageChange(questionsResult.page - 1);
+    }
+  }, [questionsResult.page, handlePageChange]);
+
+  const handleNext = useCallback(() => {
+    if (questionsResult.page < questionsResult.totalPages) {
+      handlePageChange(questionsResult.page + 1);
+    }
+  }, [questionsResult.page, questionsResult.totalPages, handlePageChange]);
+
   return (
     questionsResult.totalPages > 1 && (
       <div className="flex items-center justify-center pt-4 border-t border-border">
@@ -21,7 +50,11 @@ export function QuestionsPagination({
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
-                href="/"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePrevious();
+                }}
                 className={
                   questionsResult.page === 1
                     ? "pointer-events-none opacity-50"
@@ -49,7 +82,11 @@ export function QuestionsPagination({
                 return (
                   <PaginationItem key={pageNum}>
                     <PaginationLink
-                      href="/"
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(pageNum);
+                      }}
                       isActive={pageNum === questionsResult.page}
                     >
                       {pageNum}
@@ -64,7 +101,13 @@ export function QuestionsPagination({
                   <PaginationEllipsis />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink href="/">
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange(questionsResult.totalPages);
+                    }}
+                  >
                     {questionsResult.totalPages}
                   </PaginationLink>
                 </PaginationItem>
@@ -72,7 +115,11 @@ export function QuestionsPagination({
             )}
             <PaginationItem>
               <PaginationNext
-                href="/"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNext();
+                }}
                 className={
                   questionsResult.page === questionsResult.totalPages
                     ? "pointer-events-none opacity-50"
