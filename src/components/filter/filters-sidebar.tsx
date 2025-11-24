@@ -96,8 +96,8 @@ export function FiltersSidebar({ types }: FiltersSidebarProps) {
                   <div key={level}>
                     <Button
                       variant={isSelected ? "default" : "outline"}
-                      size="icon"
-                      className="h-9 w-9 hover:bg-accent hover:text-accent-foreground"
+                      size="icon-sm"
+                      className="h-7 w-7 hover:bg-accent hover:text-accent-foreground"
                       onClick={() => handleDifficultyToggle(level)}
                     >
                       {level}
