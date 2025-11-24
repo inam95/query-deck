@@ -1,6 +1,6 @@
-import prisma from "../app/lib/prisma";
-import type { Question } from "../app/generated/prisma/client";
-import type { Prisma } from "../app/generated/prisma/client";
+import type { Question } from "../generated/prisma/client";
+import type { Prisma } from "../generated/prisma/client";
+import prisma from "./prisma";
 
 export interface GetQuestionsParams {
   page?: number;

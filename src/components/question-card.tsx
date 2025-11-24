@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
 import { capitalizeType } from "@/lib/utils";
-import type { Question } from "../app/generated/prisma/client";
+import type { Question } from "../generated/prisma/client";
 
 interface QuestionCardProps {
   question: Question;
@@ -20,11 +20,11 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
         delay: index * 0.05,
         ease: "easeOut",
       }}
-      className="question-card"
+      className="question-card relative"
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-lg font-semibold text-foreground leading-tight">
+          <h3 className="text-lg font-semibold text-foreground leading-tight flex-1">
             {question.title}
           </h3>
         </div>
@@ -38,12 +38,18 @@ export function QuestionCard({ question, index }: QuestionCardProps) {
         <div className="flex items-center gap-2 flex-wrap">
           <Badge variant="type">{capitalizeType(question.type)}</Badge>
           <Badge variant="difficulty">Level {question.difficulty}</Badge>
-          {question.companyAsked && (
-            <span className="text-xs text-muted-foreground">
+        </div>
+
+        {question.companyAsked && (
+          <div className="absolute bottom-4 right-4 flex items-center gap-1.5">
+            <span className="text-xs text-muted-foreground font-medium">
+              Asked by:
+            </span>
+            <span className="text-xs text-foreground font-semibold">
               {question.companyAsked}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </motion.div>
   );

@@ -41,9 +41,6 @@ export function MobileFilters() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <SheetHeader className="p-4 pb-2 border-b border-border">
-              <SheetTitle>Filters</SheetTitle>
-            </SheetHeader>
             <div className="p-4">
               <FiltersSidebar />
             </div>
@@ -53,4 +50,3 @@ export function MobileFilters() {
     </div>
   );
 }
-
