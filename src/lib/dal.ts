@@ -1,6 +1,7 @@
 import type { Question } from "../generated/prisma/client";
 import type { Prisma } from "../generated/prisma/client";
 import prisma from "./prisma";
+import { mockDelay } from "./utils";
 
 export interface GetQuestionsParams {
   page?: number;
@@ -32,6 +33,8 @@ export async function getQuestions(
     sortOrder = "desc",
     search,
   } = params;
+
+  await mockDelay(7000);
 
   const validPage = Math.max(1, page);
   const validPageSize = Math.max(1, Math.min(100, pageSize)); // Cap at 100 items per page

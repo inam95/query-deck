@@ -11,3 +11,7 @@ export function capitalizeType(type: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
+
+export function mockDelay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

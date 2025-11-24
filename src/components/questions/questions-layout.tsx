@@ -1,7 +1,4 @@
-"use client";
-
 import { Search, ChevronsUpDown } from "lucide-react";
-import { motion } from "motion/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,8 +10,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { QuestionCard } from "@/components/question-card";
 import type { GetQuestionsResult } from "@/lib/dal";
+import { QuestionsList } from "./questions-list";
+import { Suspense } from "react";
+import { QuestionCardSkeleton } from "./question-card-skeleton";
 
 interface QuestionsLayoutProps {
   initialData: GetQuestionsResult;
@@ -24,12 +23,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
   return (
     <main className="min-h-[calc(100vh-4rem)] px-4 md:px-6 py-6">
       {/* Search Bar Area */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="mb-6 space-y-4"
-      >
+      <div className="mb-6 space-y-4">
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1 relative">
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
@@ -43,34 +37,24 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </div>
-      </motion.div>
+      </div>
 
       {/* Questions List Area */}
-      <div className="space-y-4 mb-8">
-        {initialData.questions.length > 0 ? (
-          initialData.questions.map((question, index) => (
-            <QuestionCard key={question.id} question={question} index={index} />
-          ))
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="rounded-lg border border-border bg-card p-12 text-center"
-          >
-            <p className="text-muted-foreground">No questions found</p>
-          </motion.div>
-        )}
-      </div>
+      <Suspense
+        fallback={
+          <div className="space-y-4 mb-8">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <QuestionCardSkeleton key={i} />
+            ))}
+          </div>
+        }
+      >
+        <QuestionsList />
+      </Suspense>
 
       {/* Pagination Area */}
       {initialData.totalPages > 1 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-          className="flex items-center justify-center pt-4 border-t border-border"
-        >
+        <div className="flex items-center justify-center pt-4 border-t border-border">
           <Pagination>
             <PaginationContent>
               <PaginationItem>
@@ -133,7 +117,7 @@ export function QuestionsLayout({ initialData }: QuestionsLayoutProps) {
               </PaginationItem>
             </PaginationContent>
           </Pagination>
-        </motion.div>
+        </div>
       )}
     </main>
   );

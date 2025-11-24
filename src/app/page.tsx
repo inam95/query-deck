@@ -1,7 +1,7 @@
 import { getQuestions, getUniqueTypes } from "@/lib/dal";
 import { FiltersSidebar } from "@/components/filters-sidebar";
 import { MobileFilters } from "@/components/mobile-filters";
-import { QuestionsLayout } from "@/components/questions-layout";
+import { QuestionsLayout } from "@/components/questions/questions-layout";
 
 export default async function Home() {
   const questionsData = await getQuestions();
