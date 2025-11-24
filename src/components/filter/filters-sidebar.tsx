@@ -1,7 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { TypeFilter } from "./type-filter";
-import { getUniqueTypes } from "@/lib/dal";
 
 interface FiltersSidebarProps {
   types: string[];
